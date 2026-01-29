@@ -13,3 +13,4 @@ export const infoPageComponents: Record<string, ComponentType<any>> = {
 export type InfoPageKey = keyof typeof infoPageComponents;
 
 
+
