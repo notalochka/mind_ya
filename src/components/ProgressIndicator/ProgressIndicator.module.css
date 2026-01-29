@@ -1,0 +1,58 @@
+.progressContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 60px;
+  padding: 0 6px;
+}
+
+.progressLine {
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  right: 6px;
+  height: 2px;
+  background-color: var(--color-light);
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.progressLineFilled {
+  height: 100%;
+  background-color: var(--color-dark);
+  transition: width 0.3s ease;
+}
+
+.progressDot {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--color-light);
+  border: 2px solid var(--color-light);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.progressDotActive {
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
+}
+
+.progressDotCompleted {
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
+}
+
+.progressDot svg {
+  width: 12px;
+  height: 12px;
+}
+
+
