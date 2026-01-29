@@ -1,6 +1,6 @@
 .quizPage {
   background-color: #fff;
-  padding: 40px 0;
+  padding-top: 40px;
 }
 
 .quizContainer {
@@ -115,11 +115,19 @@
 
 /* Navigation Buttons */
 .navigationButtons {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 16px;
-  margin-top: 120px;
+  width: 100%;
+  max-width: 700px;
+  padding: 0 20px 50px 20px;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(255, 255, 255) 29.7%);
 }
 
 .backButton {
@@ -131,10 +139,11 @@
   border: none;
   border-radius: 8px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--color-text);
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
 }
 
 .backButton:hover {
@@ -150,7 +159,7 @@
   border: none;
   border-radius: 8px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -166,43 +175,78 @@
 }
 
 @media (max-width: 768px) {
+  .quizPage {
+    padding-top: 20px;
+  }
+
   .quizContainer {
-    padding: 0 16px;
+    padding: 0 26px;
+  }
+
+  .infoStep {
+    margin-bottom: 20px;
+  }
+
+  .infoTitle {
+    font-size: 20px;
+    margin-bottom: 26px;
+  }
+
+  .infoContent {
+    font-size: 14px;
   }
 
   .question {
-    font-size: 24px;
-    margin-bottom: 40px;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .optionsContainer {
+    gap: 10px;
+    margin-bottom: 20px;
   }
 
   .optionCard {
-    padding: 20px 24px;
+    padding: 12px 16px;
+    border-radius: 10px;
   }
 
   .optionTitle {
     font-size: 16px;
   }
 
-.optionSubtitle {
-  font-size: 14px;
-  font-weight: 400;
-  color: #666;
-  margin: 8px 0 0 0;
-  line-height: 1.4;
-}
+  .optionSubtitle {
+    font-size: 13px;
+    font-weight: 400;
+    color: #666;
+    margin: 6px 0 0 0;
+    line-height: 1.4;
+  }
 
-.optionCardSelected .optionSubtitle {
-  color: rgba(255, 255, 255, 0.8);
-}
+  .optionCardSelected .optionSubtitle {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .optionIndicator {
+    margin-left: 12px;
+  }
+
+  .optionRadio {
+    width: 20px;
+    height: 20px;
+  }
 
   .navigationButtons {
-    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px 40px 16px;
+    max-width: 100%;
   }
 
   .backButton,
   .nextButton {
-    width: 100%;
-    justify-content: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 6px;
   }
 }
 

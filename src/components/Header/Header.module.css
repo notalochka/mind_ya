@@ -1,0 +1,22 @@
+.header {
+  background-color: var(--color-bg);
+  padding: 10px 200px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 20px;
+  }
+
+  .logo {
+    width: 100px !important;
+    height: auto !important;
+  }
+}
+

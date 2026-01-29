@@ -1,20 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
+import styles from './Header.module.css';
 
 const Header: React.FC = () => {
   return (
-    <header style={{ 
-      backgroundColor: 'var(--color-bg)', 
-      padding: '10px 200px',
-      display: 'flex',
-      alignItems: 'center'
-    }}>
+    <header className={styles.header}>
       <Image 
         src="/logo.jpg" 
         alt="Logo" 
         width={222} 
         height={78}
-        style={{ objectFit: 'contain' }}
+        className={styles.logo}
       />
     </header>
   );
