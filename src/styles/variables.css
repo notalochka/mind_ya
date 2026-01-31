@@ -1,6 +1,7 @@
 :root {
   /* Глобальні кольори */
   --color-primary: #5671A6;
+  --color-primary-dark: #3d5380;
   --color-secondary: #B0C1D9;
   --color-tertiary: rgb(207, 217, 235);
   --color-light: #F2F2F2;

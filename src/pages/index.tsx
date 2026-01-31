@@ -166,55 +166,13 @@ const Home: NextPage = () => {
         </section>
         
         <section className={styles.sourcesContent}>
-          <div className={styles.sourcesLogos}>
-            <Image 
-              src="/sources_logo/American.jpg" 
-              alt="American" 
-              width={120} 
-              height={60}
-              className={styles.sourceLogo}
-            />
-            <Image 
-              src="/sources_logo/british.jpg" 
-              alt="British" 
-              width={120} 
-              height={60}
-              className={styles.sourceLogo}
-            />
-            <Image 
-              src="/sources_logo/Lancet.jpg" 
-              alt="Lancet" 
-              width={120} 
-              height={60}
-              className={styles.sourceLogo}
-            />
-          </div>
-          
-          <div className={styles.sourcesTextBlocks}>
-            <div className={styles.sourceTextBlock}>
-              <span className={styles.sourceTextBlockContent}>Harvard T.H. Chan School of <br />Public Health</span>
-            </div>
-            <div className={styles.sourceTextBlock}>
-              <span className={styles.sourceTextBlockContent}>Stanford Medicine</span>
-            </div>
-            <div className={styles.sourceTextBlock}>
-              <span className={styles.sourceTextBlockContent}>University of Cambridge</span>
-            </div>
-          </div>
-          
-          <p className={styles.sourcesSubtitle}>Українські рецензовані наукові видання з психології:</p>
-          
-          <div className={styles.sourcesTextBlocks}>
-            <div className={styles.sourceTextBlock}>
-              <span className={styles.sourceTextBlockContent}>Український <br />психологічний журнал</span>
-            </div>
-            <div className={styles.sourceTextBlock}>
-              <span className={styles.sourceTextBlockContent}>Актуальні проблеми <br />психології</span>
-            </div>
-            <div className={styles.sourceTextBlock}>
-              <span className={styles.sourceTextBlockContent}>Психологія і <br />особистість</span>
-            </div>
-          </div>
+          <Image 
+            src="/sources_logo.jpg" 
+            alt="Sources" 
+            width={800} 
+            height={400}
+            className={styles.sourceLogo}
+          />
         </section>
         
         <ul className={styles.sourcesList}>

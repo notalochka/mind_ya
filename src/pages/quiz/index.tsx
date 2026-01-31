@@ -6,7 +6,7 @@ import Header from '@/components/Header/Header';
 import { ProgressIndicator } from '@/components/ProgressIndicator/ProgressIndicator';
 import { infoPageComponents } from '@/components/QuizInfoPages';
 import { quizData } from '@/data/quizData';
-import { Step, InfoStep, QuestionStep } from '@/types/quiz';
+import { Step, InfoStep, QuestionStep, RatingStep } from '@/types/quiz';
 import styles from './index.module.css';
 
 const Quiz: NextPage = () => {
@@ -20,18 +20,61 @@ const Quiz: NextPage = () => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [showNavigationButtons, setShowNavigationButtons] = useState(true);
+
+  // Встановлюємо тему для хедера та інших глобальних елементів
+  useEffect(() => {
+    if (currentStep?.type === 'info') {
+      const infoStep = currentStep as InfoStep;
+      const theme = infoStep.theme || 'default';
+      
+      // Встановлюємо CSS змінні на рівні document для глобального доступу
+      if (theme === 'primary') {
+        // Для теми primary: синій фон (#5671A6)
+        document.documentElement.style.setProperty('--theme-header-bg', '#5671A6');
+        document.body.style.backgroundColor = '#5671A6';
+      } else {
+        // Для дефолтної теми: білий фон
+        document.documentElement.style.setProperty('--theme-header-bg', '#fff');
+        document.body.style.backgroundColor = '#fff';
+      }
+      
+      // Додаємо клас до body для теми
+      document.body.className = `quiz-theme-${theme}`;
+    } else {
+      // Повертаємо до дефолтної теми для питань
+      document.documentElement.style.setProperty('--theme-header-bg', '#fff');
+      document.body.style.backgroundColor = '#fff';
+      document.body.className = '';
+    }
+    
+    return () => {
+      // Cleanup
+      document.body.className = '';
+      document.body.style.backgroundColor = '';
+    };
+  }, [currentStep]);
 
   // Завантажуємо відповідь, якщо вона вже була дана
   useEffect(() => {
-    if (currentStep?.type === 'question' && answers[currentStepNumber]) {
+    if ((currentStep?.type === 'question' || currentStep?.type === 'rating') && answers[currentStepNumber]) {
       setSelectedOption(answers[currentStepNumber]);
     } else {
       setSelectedOption(null);
     }
   }, [currentStepNumber, currentStep, answers]);
 
+  // Контролюємо видимість кнопок навігації для кроку 9
+  useEffect(() => {
+    if (currentStep?.id === 'step-9') {
+      setShowNavigationButtons(false);
+    } else {
+      setShowNavigationButtons(true);
+    }
+  }, [currentStep]);
+
   const handleNext = () => {
-    if (currentStep?.type === 'question' && selectedOption !== null) {
+    if ((currentStep?.type === 'question' || currentStep?.type === 'rating') && selectedOption !== null) {
       // Зберігаємо відповідь
       setAnswers(prev => ({ ...prev, [currentStepNumber]: selectedOption }));
       
@@ -90,7 +133,12 @@ const Quiz: NextPage = () => {
       );
     }
 
-    return <InfoComponent {...(infoStep.props || {})} />;
+    // Для кроку 9 передаємо callback для показу кнопок після завершення анімації
+    const props = infoStep.id === 'step-9' 
+      ? { ...(infoStep.props || {}), onAnimationComplete: () => setShowNavigationButtons(true) }
+      : (infoStep.props || {});
+
+    return <InfoComponent {...props} />;
   };
 
   return (
@@ -99,7 +147,11 @@ const Quiz: NextPage = () => {
         <title>Тест - Крок {currentStepNumber}</title>
       </Head>
       <Header />
-      <main className={styles.quizPage}>
+      <main className={`${styles.quizPage} ${
+        currentStep?.type === 'info' 
+          ? styles[`theme-${(currentStep as InfoStep).theme || 'default'}`] 
+          : ''
+      }`}>
         <div className={styles.quizContainer}>
           <ProgressIndicator
             currentStep={currentStepNumber}
@@ -153,57 +205,91 @@ const Quiz: NextPage = () => {
                 ))}
               </div>
             </>
+          ) : currentStep.type === 'rating' ? (
+            <>
+              <h1 className={styles.ratingQuestion}>{(currentStep as RatingStep).question}</h1>
+              <p className={styles.ratingPrompt}>Оцініть від 1 до 5</p>
+              <div className={styles.ratingContainer}>
+                <div className={styles.ratingButtons}>
+                  {Array.from({ length: 5 }, (_, index) => {
+                    const ratingValue = index + 1;
+                    const isSelected = selectedOption === ratingValue;
+                    return (
+                      <button
+                        key={ratingValue}
+                        className={`${styles.ratingButton} ${
+                          isSelected ? styles.ratingButtonSelected : ''
+                        }`}
+                        onClick={() => setSelectedOption(ratingValue)}
+                      >
+                        {ratingValue}
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className={styles.ratingLabels}>
+                  <span className={styles.ratingLabel}>
+                    {(currentStep as RatingStep).minLabel || 'Not hard'}
+                  </span>
+                  <span className={styles.ratingLabel}>
+                    {(currentStep as RatingStep).maxLabel || 'Very hard'}
+                  </span>
+                </div>
+              </div>
+            </>
           ) : (
             renderInfoStep(currentStep)
           )}
 
-          <div className={styles.navigationButtons}>
-            <button
-              className={styles.backButton}
-              onClick={handleBack}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+          {showNavigationButtons && (
+            <div className={styles.navigationButtons}>
+              <button
+                className={styles.backButton}
+                onClick={handleBack}
               >
-                <path
-                  d="M12 15L7 10L12 5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span>Назад</span>
-            </button>
-            <button
-              className={styles.nextButton}
-              onClick={handleNext}
-              disabled={
-                currentStep.type === 'question' && selectedOption === null
-              }
-            >
-              <span>Далі</span>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 15L7 10L12 5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span>Назад</span>
+              </button>
+              <button
+                className={styles.nextButton}
+                onClick={handleNext}
+                disabled={
+                  (currentStep.type === 'question' || currentStep.type === 'rating') && selectedOption === null
+                }
               >
-                <path
-                  d="M8 5L13 10L8 15"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
+                <span>Далі</span>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 5L13 10L8 15"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </>

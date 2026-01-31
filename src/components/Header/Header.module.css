@@ -1,8 +1,9 @@
 .header {
-  background-color: var(--color-bg);
+  background-color: var(--theme-header-bg, var(--color-bg));
   padding: 10px 200px;
   display: flex;
   align-items: center;
+  transition: background-color 0.3s ease;
 }
 
 .logo {
@@ -15,7 +16,7 @@
   }
 
   .logo {
-    width: 100px !important;
+    width: 200px !important;
     height: auto !important;
   }
 }
