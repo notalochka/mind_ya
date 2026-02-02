@@ -10,6 +10,9 @@
   /* Кольори для тексту та фону */
   --color-text: #0D0D0D;
   --color-bg: #EFEDED;
+  
+  /* Колір логотипу для світлої теми */
+  --logo-color: var(--color-primary);
 }
 
 

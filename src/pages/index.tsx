@@ -166,13 +166,13 @@ const Home: NextPage = () => {
         </section>
         
         <section className={styles.sourcesContent}>
-          <Image 
+            <Image 
             src="/sources_logo.jpg" 
             alt="Sources" 
             width={800} 
             height={400}
-            className={styles.sourceLogo}
-          />
+              className={styles.sourceLogo}
+            />
         </section>
         
         <ul className={styles.sourcesList}>

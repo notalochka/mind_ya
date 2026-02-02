@@ -44,7 +44,7 @@ const InfoPageStep8: React.FC<InfoPageStep8Props> = ({
           className={styles.sourceIcon}
         />
         <div className={styles.sourceTextContainer}>
-          <span className={styles.sourceLabel}>Source:</span>
+          <span className={styles.sourceLabel}>Джерело:</span>
           <span className={styles.sourceText}>{sourceText}</span>
         </div>
       </div>

@@ -6,8 +6,33 @@
   transition: background-color 0.3s ease;
 }
 
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
 .logo {
-  object-fit: contain;
+  width: 222px;
+  height: auto;
+  max-height: 78px;
+  color: var(--logo-color, var(--color-primary));
+  transition: color 0.3s ease;
+  display: block;
+}
+
+/* Для темної теми через класи - білий колір логотипу */
+body.quiz-theme-primary .logo,
+body.quiz-theme-primary .header .logo,
+body.quiz-theme-primary .logoContainer .logo,
+[data-theme='dark'] .logo,
+.dark .logo,
+body.dark .logo {
+  color: #ffffff !important;
+}
+
+/* Якщо фон хедера темний (primary тема) - білий логотип через CSS змінну */
+body.quiz-theme-primary {
+  --logo-color: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -16,8 +41,8 @@
   }
 
   .logo {
-    width: 200px !important;
-    height: auto !important;
+    width: 200px;
+    height: auto;
   }
 }
 

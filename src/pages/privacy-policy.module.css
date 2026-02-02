@@ -1,0 +1,139 @@
+.main {
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #333;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 30px;
+  margin-bottom: 16px;
+}
+
+.updateDate {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.intro {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #444;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 32px 0;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.subsectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #444;
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+.section p {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.list {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style-type: disc;
+}
+
+.list li {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.contact {
+  font-size: 16px;
+  margin-top: 12px;
+}
+
+.emailLink {
+  color: #5671A6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.emailLink:hover {
+  text-decoration: underline;
+  color: #3d5380;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-top: 40px;
+  margin-bottom: 32px;
+}
+
+
+@media (max-width: 768px) {
+  .main {
+    padding: 20px 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .heading {
+    font-size: 22px;
+  }
+
+  .sectionTitle {
+    font-size: 20px;
+  }
+
+  .subsectionTitle {
+    font-size: 16px;
+  }
+
+  .section p,
+  .list li {
+    font-size: 15px;
+  }
+
+}
+

@@ -23,6 +23,8 @@
   --theme-progress-checkmark: #fff;
   --theme-button-bg: var(--color-dark);
   --theme-button-text: #fff;
+  --theme-back-button-bg: var(--color-light);
+  --theme-back-button-text: var(--color-text);
 }
 
 .quizContainer {
@@ -258,6 +260,10 @@
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+.quizPage.theme-default .backButton:hover {
+  background-color: #e5e5e5;
+}
+
 .nextButton {
   display: flex;
   align-items: center;
@@ -326,17 +332,17 @@
     font-size: 16px;
   }
 
-  .optionSubtitle {
+.optionSubtitle {
     font-size: 13px;
-    font-weight: 400;
-    color: #666;
+  font-weight: 400;
+  color: #666;
     margin: 6px 0 0 0;
-    line-height: 1.4;
-  }
+  line-height: 1.4;
+}
 
-  .optionCardSelected .optionSubtitle {
-    color: rgba(255, 255, 255, 0.8);
-  }
+.optionCardSelected .optionSubtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
 
   .optionIndicator {
     margin-left: 12px;
