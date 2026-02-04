@@ -6,6 +6,11 @@
   transition: background-color 0.3s ease;
 }
 
+/* Темна тема для хедера */
+body.quiz-theme-primary .header {
+  background-color: var(--color-primary);
+}
+
 .logoContainer {
   display: flex;
   align-items: center;

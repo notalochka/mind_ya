@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
-import styles from './plan-ready.module.css';
+import styles from './plan-ready-2.module.css';
 
 interface ImprovementItem {
   icon: React.ReactNode;
@@ -76,8 +76,8 @@ const improvements: ImprovementItem[] = [
 
 const PlanReady: NextPage = () => {
   const router = useRouter();
-  const [timeLeft, setTimeLeft] = useState({ minutes: 10, seconds: 0 });
-  const [discountTimeLeft, setDiscountTimeLeft] = useState({ minutes: 10, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({ minutes: 5, seconds: 0 });
+  const [discountTimeLeft, setDiscountTimeLeft] = useState({ minutes: 5, seconds: 0 });
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [isHeaderTimerExpired, setIsHeaderTimerExpired] = useState(false);
   const [isDiscountBannerExpired, setIsDiscountBannerExpired] = useState(false);
@@ -162,7 +162,7 @@ const PlanReady: NextPage = () => {
     }
   };
   const handleGetSuperDiscount = () => {
-    router.push('/super-discount');
+    // router.push('/super-discount');
   };
 
   return (
@@ -414,19 +414,22 @@ const PlanReady: NextPage = () => {
                 </svg>
               </div>
               <div className={`${styles.priceCard} ${styles.priceCardHighlighted}`}>
-                <div className={styles.discountBadge}>Знижка 50%</div>
+                <div className={styles.discountBadge}>Знижка 66%</div>
                 <div className={styles.priceCardContent}>
                   <div className={styles.priceOldContainer}>
                     <span className={styles.priceOld}>1900 грн</span>
+                    <span className={styles.priceOld}>950 грн</span>
                   </div>
-                  <span className={styles.priceNew}>950 грн</span>
+                  <span className={styles.priceNew}>650 грн</span>
                   <span className={styles.priceCardSubtext}>за повну програму</span>
                 </div>
               </div>
             </div>
-
             <p className={styles.dailyPrice}>
-              💰 Це лише <strong>68 грн за день</strong> програми (менше ніж чашка кави в кав'ярні)
+            <strong>🔥 Ви зекономите 1250 грн!</strong>
+            </p>
+            <p className={styles.dailyPrice}>
+              💰 Це лише <strong>46 грн за день програми</strong> (менше ніж чашка кави в кав'ярні)
             </p>
 
             <ul className={styles.benefitsList}>
