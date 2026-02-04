@@ -9,7 +9,11 @@ import styles from './index.module.css';
 const Home: NextPage = () => {
   const router = useRouter();
 
-  const handleQuizStart = () => {
+  const handleQuizStart = (ageRange: string) => {
+    // Зберігаємо відповідь про вік в localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mind_ya_user_age', ageRange);
+    }
     router.push('/quiz?step=1');
   };
 
@@ -124,7 +128,7 @@ const Home: NextPage = () => {
         <section className={styles.quiz}>
           <h2 className={styles.quizQuestion}>Скільки вам років?</h2>
           <div className={styles.quizOptions}>
-            <button className={styles.quizButton} onClick={handleQuizStart}>
+            <button className={styles.quizButton} onClick={() => handleQuizStart('20-30')}>
               <span className={styles.quizButtonText}>20-30</span>
               <span className={styles.quizArrow}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +136,7 @@ const Home: NextPage = () => {
                 </svg>
               </span>
             </button>
-            <button className={styles.quizButton} onClick={handleQuizStart}>
+            <button className={styles.quizButton} onClick={() => handleQuizStart('31-40')}>
               <span className={styles.quizButtonText}>31-40</span>
               <span className={styles.quizArrow}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -140,7 +144,7 @@ const Home: NextPage = () => {
                 </svg>
               </span>
             </button>
-            <button className={styles.quizButton} onClick={handleQuizStart}>
+            <button className={styles.quizButton} onClick={() => handleQuizStart('41-50')}>
               <span className={styles.quizButtonText}>41-50</span>
               <span className={styles.quizArrow}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -148,7 +152,7 @@ const Home: NextPage = () => {
                 </svg>
               </span>
             </button>
-            <button className={styles.quizButton} onClick={handleQuizStart}>
+            <button className={styles.quizButton} onClick={() => handleQuizStart('50+')}>
               <span className={styles.quizButtonText}>50+</span>
               <span className={styles.quizArrow}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

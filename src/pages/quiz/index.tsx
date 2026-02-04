@@ -9,6 +9,9 @@ import { quizData } from '@/data/quizData';
 import { Step, InfoStep, QuestionStep, RatingStep } from '@/types/quiz';
 import styles from './index.module.css';
 
+const QUIZ_STORAGE_KEY = 'mind_ya_quiz_answers';
+const COMPLETED_STEPS_KEY = 'mind_ya_completed_steps';
+
 const Quiz: NextPage = () => {
   const router = useRouter();
   const { step } = router.query;
@@ -18,9 +21,58 @@ const Quiz: NextPage = () => {
   const totalSteps = quizData.steps.length;
 
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  
+  // Завантажуємо збережені відповіді з localStorage при ініціалізації
+  const [answers, setAnswers] = useState<Record<number, number>>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(QUIZ_STORAGE_KEY);
+        return saved ? JSON.parse(saved) : {};
+      } catch (error) {
+        console.error('Помилка при завантаженні відповідей:', error);
+        return {};
+      }
+    }
+    return {};
+  });
+  
+  // Завантажуємо збережені завершені кроки з localStorage при ініціалізації
+  const [completedSteps, setCompletedSteps] = useState<number[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(COMPLETED_STEPS_KEY);
+        return saved ? JSON.parse(saved) : [];
+      } catch (error) {
+        console.error('Помилка при завантаженні завершених кроків:', error);
+        return [];
+      }
+    }
+    return [];
+  });
+  
   const [showNavigationButtons, setShowNavigationButtons] = useState(true);
+
+  // Зберігаємо відповіді в localStorage при кожній зміні
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(answers));
+      } catch (error) {
+        console.error('Помилка при збереженні відповідей:', error);
+      }
+    }
+  }, [answers]);
+
+  // Зберігаємо завершені кроки в localStorage при кожній зміні
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(COMPLETED_STEPS_KEY, JSON.stringify(completedSteps));
+      } catch (error) {
+        console.error('Помилка при збереженні завершених кроків:', error);
+      }
+    }
+  }, [completedSteps]);
 
   // Встановлюємо тему для хедера та інших глобальних елементів
   useEffect(() => {

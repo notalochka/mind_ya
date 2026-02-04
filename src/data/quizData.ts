@@ -183,7 +183,7 @@ export const quizData: QuizData = {
       id: 'step-16',
       type: 'question',
       order: 16,
-      question: 'Чи є у вас 10 хвилин на день тільки для себе??',
+      question: 'Чи є у вас 10 хвилин на день тільки для себе?',
       options: [
         { id: 1, title: 'Так, легко знаходжу' },
         { id: 2, title: 'Важко, але можливо' },

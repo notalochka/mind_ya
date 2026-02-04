@@ -36,7 +36,7 @@ const InfoPageStep9: React.FC<InfoPageStep9Props> = ({
       timerRef.current = null;
     }
 
-    const duration = 13000; // 13 секунд
+    const duration = 7000; // 7 секунд
     const interval = 50; // Оновлення кожні 50мс
     const steps = duration / interval;
     const increment = 100 / steps;

@@ -59,13 +59,22 @@ const Analysis: NextPage = () => {
 
   useEffect(() => {
     let currentItemIndex = 0;
-    const progressDuration = 5000; // 5 секунд на кожен прогрес-бар
-    const updateInterval = 16; // ~60fps
+    const progressDuration = 8000; // 8 секунд на кожен прогрес-бар
     const startTimes: number[] = [];
+    let animationFrameId: number | null = null;
 
-    const interval = setInterval(() => {
+    // Easing функція для плавного переходу (ease-in-out)
+    const easeInOut = (t: number): number => {
+      return t < 0.5
+        ? 2 * t * t
+        : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    };
+
+    const animate = () => {
       if (currentItemIndex >= progressItems.length) {
-        clearInterval(interval);
+        if (animationFrameId !== null) {
+          cancelAnimationFrame(animationFrameId);
+        }
         return;
       }
 
@@ -79,7 +88,11 @@ const Analysis: NextPage = () => {
       }
 
       const elapsed = Date.now() - startTimes[currentItemIndex];
-      const progress = Math.min((elapsed / progressDuration) * 100, 100);
+      const rawProgress = Math.min(elapsed / progressDuration, 1);
+      
+      // Застосовуємо easing для плавнішого руху
+      const easedProgress = easeInOut(rawProgress);
+      const progress = easedProgress * 100;
 
       // Оновлюємо прогрес поточного рядка
       setProgressValues(prev => {
@@ -89,7 +102,7 @@ const Analysis: NextPage = () => {
       });
 
       // Якщо прогрес-бар завершено, переходимо до наступного
-      if (progress >= 100) {
+      if (rawProgress >= 1) {
         currentItemIndex++;
         
         if (currentItemIndex < progressItems.length) {
@@ -100,9 +113,17 @@ const Analysis: NextPage = () => {
           setAllProgressComplete(true);
         }
       }
-    }, updateInterval);
 
-    return () => clearInterval(interval);
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, []);
 
   // Затримка 3 секунди після завершення всіх прогрес-барів

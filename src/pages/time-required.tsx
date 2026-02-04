@@ -14,8 +14,7 @@ const TimeRequired: NextPage = () => {
   };
 
   const handleGotIt = () => {
-    // Тут можна додати логіку переходу на наступну сторінку
-    console.log('Зрозуміло');
+    router.push('/final-result');
   };
 
   return (
