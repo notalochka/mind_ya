@@ -64,8 +64,9 @@
   height: 100%;
   background-color: #333;
   border-radius: 4px;
-  transition: width 0.2s ease-out;
   will-change: width;
+  min-width: 0;
+  transform: translateZ(0); /* Примусова апаратна прискорення */
 }
 
 .spinner {

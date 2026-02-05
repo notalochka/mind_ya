@@ -10,9 +10,9 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   const handleQuizStart = (ageRange: string) => {
-    // Зберігаємо відповідь про вік в localStorage
+    // Зберігаємо відповідь про вік в sessionStorage
     if (typeof window !== 'undefined') {
-      localStorage.setItem('mind_ya_user_age', ageRange);
+      sessionStorage.setItem('mind_ya_user_age', ageRange);
     }
     router.push('/quiz?step=1');
   };

@@ -13,11 +13,11 @@ const FinalResult: NextPage = () => {
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
 
-  // Завантажуємо збережений вік з localStorage
+  // Завантажуємо збережений вік з sessionStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        const savedAge = localStorage.getItem('mind_ya_user_age');
+        const savedAge = sessionStorage.getItem('mind_ya_user_age');
         if (savedAge) {
           setUserAge(savedAge);
         }

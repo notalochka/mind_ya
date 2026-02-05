@@ -22,11 +22,11 @@ const Quiz: NextPage = () => {
 
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
-  // Завантажуємо збережені відповіді з localStorage при ініціалізації
+  // Завантажуємо збережені відповіді з sessionStorage при ініціалізації
   const [answers, setAnswers] = useState<Record<number, number>>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem(QUIZ_STORAGE_KEY);
+        const saved = sessionStorage.getItem(QUIZ_STORAGE_KEY);
         return saved ? JSON.parse(saved) : {};
       } catch (error) {
         console.error('Помилка при завантаженні відповідей:', error);
@@ -36,11 +36,11 @@ const Quiz: NextPage = () => {
     return {};
   });
   
-  // Завантажуємо збережені завершені кроки з localStorage при ініціалізації
+  // Завантажуємо збережені завершені кроки з sessionStorage при ініціалізації
   const [completedSteps, setCompletedSteps] = useState<number[]>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem(COMPLETED_STEPS_KEY);
+        const saved = sessionStorage.getItem(COMPLETED_STEPS_KEY);
         return saved ? JSON.parse(saved) : [];
       } catch (error) {
         console.error('Помилка при завантаженні завершених кроків:', error);
@@ -52,22 +52,22 @@ const Quiz: NextPage = () => {
   
   const [showNavigationButtons, setShowNavigationButtons] = useState(true);
 
-  // Зберігаємо відповіді в localStorage при кожній зміні
+  // Зберігаємо відповіді в sessionStorage при кожній зміні
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(answers));
+        sessionStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(answers));
       } catch (error) {
         console.error('Помилка при збереженні відповідей:', error);
       }
     }
   }, [answers]);
 
-  // Зберігаємо завершені кроки в localStorage при кожній зміні
+  // Зберігаємо завершені кроки в sessionStorage при кожній зміні
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        localStorage.setItem(COMPLETED_STEPS_KEY, JSON.stringify(completedSteps));
+        sessionStorage.setItem(COMPLETED_STEPS_KEY, JSON.stringify(completedSteps));
       } catch (error) {
         console.error('Помилка при збереженні завершених кроків:', error);
       }

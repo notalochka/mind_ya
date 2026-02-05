@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -57,7 +57,10 @@ const Analysis: NextPage = () => {
   const [showCheckmark, setShowCheckmark] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // Примусовий reflow для того, щоб браузер встиг застосувати стилі
+    document.body.offsetHeight;
+    
     let currentItemIndex = 0;
     const progressDuration = 8000; // 8 секунд на кожен прогрес-бар
     const startTimes: number[] = [];
@@ -117,9 +120,13 @@ const Analysis: NextPage = () => {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    animationFrameId = requestAnimationFrame(animate);
+    // Невелика затримка для гарантії, що DOM повністю відрендерився
+    const startDelay = setTimeout(() => {
+      animationFrameId = requestAnimationFrame(animate);
+    }, 50);
 
     return () => {
+      clearTimeout(startDelay);
       if (animationFrameId !== null) {
         cancelAnimationFrame(animationFrameId);
       }
