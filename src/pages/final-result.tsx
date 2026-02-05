@@ -12,6 +12,7 @@ const FinalResult: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Завантажуємо збережений вік з sessionStorage
   useEffect(() => {
@@ -37,10 +38,27 @@ const FinalResult: NextPage = () => {
     setIsModalOpen(true);
   };
 
-  const handleEmailSubmit = () => {
-    if (isEmailValid) {
-      router.push('/plan-ready');
-    }
+  const handleEmailSubmit = async () => {
+    if (!isEmailValid || isSubmitting) return;
+  
+    setIsSubmitting(true);
+    
+    // Відправляємо запит в фоні, не чекаючи на відповідь
+    fetch('/api/save-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    }).catch((error) => {
+      // Логуємо помилку, але не блокуємо перехід
+      console.error('Помилка збереження email:', error);
+    });
+  
+    // Одразу переходимо на наступну сторінку (оптимістичний UI)
+    router.push('/plan-ready');
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,11 +163,11 @@ const FinalResult: NextPage = () => {
             </p>
 
             <button
-              className={`${styles.modalButton} ${isEmailValid ? styles.modalButtonActive : styles.modalButtonDisabled}`}
+              className={`${styles.modalButton} ${isEmailValid && !isSubmitting ? styles.modalButtonActive : styles.modalButtonDisabled}`}
               onClick={handleEmailSubmit}
-              disabled={!isEmailValid}
+              disabled={!isEmailValid || isSubmitting}
             >
-              Продовжити
+              {isSubmitting ? 'Відправка...' : 'Продовжити'}
             </button>
           </div>
         </div>
