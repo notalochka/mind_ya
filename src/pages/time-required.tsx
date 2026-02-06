@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import styles from './time-required.module.css';
+import Footer from '@/components/Footer/Footer';
 
 const TimeRequired: NextPage = () => {
   const router = useRouter();
@@ -84,6 +85,7 @@ const TimeRequired: NextPage = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

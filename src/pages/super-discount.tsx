@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styles from './super-discount.module.css';
 import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
 
 const SuperDiscount: NextPage = () => {
   const router = useRouter();
@@ -60,6 +61,7 @@ const SuperDiscount: NextPage = () => {
           </button>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

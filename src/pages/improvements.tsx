@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import styles from './improvements.module.css';
+import Footer from '@/components/Footer/Footer';
 
 interface ImprovementItem {
   icon: React.ReactNode;
@@ -151,6 +152,7 @@ const Improvements: NextPage = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import styles from './index.module.css';
@@ -303,6 +304,27 @@ const Home: NextPage = () => {
             <p className={styles.footerText}>
               Усі згадані дослідження доступні у відкритих публічних наукових базах даних.
             </p>
+            
+            <div className={styles.footerCopyright}>
+              <p className={styles.copyrightText}>Mind Я © 2026</p>
+              <div className={styles.footerLinks}>
+                <Link href="/oferta" target="_blank" className={styles.footerLink}>
+                  Публічна оферта
+                </Link>
+                <span className={styles.footerSeparator}>|</span>
+                <Link href="/refund" target="_blank" className={styles.footerLink}>
+                  Політика повернення
+                </Link>
+                <span className={styles.footerSeparator}>|</span>
+                <Link href="/privacy" target="_blank" className={styles.footerLink}>
+                  Політика конфіденційності
+                </Link>
+                <span className={styles.footerSeparator}>|</span>
+                <Link href="/contact" target="_blank" className={styles.footerLink}>
+                  Контакти
+                </Link>
+              </div>
+            </div>
           </div>
         </footer>
     </>

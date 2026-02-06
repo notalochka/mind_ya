@@ -88,7 +88,7 @@ const InfoPagePlanGeneration: React.FC<InfoPagePlanGenerationProps> = ({
                   )}
                 </span>
                 <Link 
-                  href="/privacy-policy" 
+                  href="/privacy"
                   className={styles.privacyLink}
                   onClick={(e) => e.stopPropagation()}
                   target="_blank"

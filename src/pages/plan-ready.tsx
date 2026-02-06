@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import styles from './plan-ready.module.css';
+import Footer from '@/components/Footer/Footer';
 
 interface ImprovementItem {
   icon: React.ReactNode;
@@ -525,7 +526,7 @@ const PlanReady: NextPage = () => {
               <div className={styles.guaranteeTextContainer}>
                 <h3 className={styles.guaranteeTitle}>30-денна гарантія повернення коштів</h3>
                 <p className={styles.guaranteeText}>
-                  Ми впевнені, що програма Mind Я вам допоможе. Якщо протягом 30 днів ви не відчуєте покращення — ми повернемо 100% коштів без зайвих питань. Просто напишіть на support@mindya.com.ua
+                  Ми впевнені, що програма Mind Я вам допоможе. Якщо протягом 30 днів ви не відчуєте покращення — ми повернемо 100% коштів без зайвих питань. Просто напишіть на mindya.ua@gmail.com
                 </p>
               </div>
             </div>
@@ -551,17 +552,7 @@ const PlanReady: NextPage = () => {
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p className={styles.footerDisclaimer}>
-            Застереження: Результати можуть відрізнятися залежно від індивідуальних особливостей. Програма не замінює професійну медичну чи психологічну допомогу.
-          </p>
-          <div className={styles.footerBottom}>
-            <span className={styles.footerCopyright}>Mind Я © 2026</span>
-            <a href="/privacy-policy" target="_blank" className={styles.footerLink}>Політика конфіденційності</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 };

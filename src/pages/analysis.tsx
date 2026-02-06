@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import styles from './analysis.module.css';
+import Footer from '@/components/Footer/Footer';
 
 interface Review {
   stars: number;
@@ -287,6 +288,7 @@ const Analysis: NextPage = () => {
           )}
         </div>
       </main>
+      <Footer />
     </>
   );
 };

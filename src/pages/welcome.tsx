@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import styles from './welcome.module.css';
+import Footer from '@/components/Footer/Footer';
 
 const Welcome: NextPage = () => {
   const router = useRouter();
@@ -67,6 +68,7 @@ const Welcome: NextPage = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

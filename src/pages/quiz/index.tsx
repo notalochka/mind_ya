@@ -8,6 +8,7 @@ import { infoPageComponents } from '@/components/QuizInfoPages';
 import { quizData } from '@/data/quizData';
 import { Step, InfoStep, QuestionStep, RatingStep } from '@/types/quiz';
 import styles from './index.module.css';
+import Footer from '@/components/Footer/Footer';
 
 const QUIZ_STORAGE_KEY = 'mind_ya_quiz_answers';
 const COMPLETED_STEPS_KEY = 'mind_ya_completed_steps';
@@ -350,6 +351,7 @@ const Quiz: NextPage = () => {
           )}
         </div>
       </main>
+      {currentStep?.id !== 'step-30' && <Footer />}
     </>
   );
 };
