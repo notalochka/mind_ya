@@ -50,7 +50,6 @@ const progressItems = [
 const Analysis: NextPage = () => {
   const router = useRouter();
   const [progressValues, setProgressValues] = useState([0, 0, 0, 0]);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [currentReview, setCurrentReview] = useState<Review>(reviews[0]);
   const [allProgressComplete, setAllProgressComplete] = useState(false);
   const [showFinalScreen, setShowFinalScreen] = useState(false);
@@ -59,15 +58,12 @@ const Analysis: NextPage = () => {
   const [showButton, setShowButton] = useState(false);
 
   useLayoutEffect(() => {
-    // Примусовий reflow для того, щоб браузер встиг застосувати стилі
     document.body.offsetHeight;
-    
-    let currentItemIndex = 0;
-    const progressDuration = 8000; // 8 секунд на кожен прогрес-бар
-    const startTimes: number[] = [];
+
+    const progressDuration = 4000; // 4 секунди (у 2 рази швидше ніж було 8)
+    let startTime: number | null = null;
     let animationFrameId: number | null = null;
 
-    // Easing функція для плавного переходу (ease-in-out)
     const easeInOut = (t: number): number => {
       return t < 0.5
         ? 2 * t * t
@@ -75,62 +71,37 @@ const Analysis: NextPage = () => {
     };
 
     const animate = () => {
-      if (currentItemIndex >= progressItems.length) {
-        if (animationFrameId !== null) {
-          cancelAnimationFrame(animationFrameId);
-        }
+      if (!startTime) startTime = Date.now();
+      const elapsed = Date.now() - startTime;
+
+      const newValues = progressItems.map((_, index) => {
+        const rawProgress = Math.min(elapsed / progressDuration, 1);
+        const easedProgress = easeInOut(rawProgress);
+        return easedProgress * 100;
+      });
+
+      setProgressValues(newValues);
+
+      if (elapsed >= progressDuration) {
+        setAllProgressComplete(true);
+        if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
         return;
       }
 
-      // Запускаємо таймер для поточного прогрес-бара, якщо ще не запущений
-      if (!startTimes[currentItemIndex]) {
-        startTimes[currentItemIndex] = Date.now();
-        if (currentItemIndex === 0) {
-          setActiveIndex(0);
-          setCurrentReview(reviews[0]);
-        }
-      }
-
-      const elapsed = Date.now() - startTimes[currentItemIndex];
-      const rawProgress = Math.min(elapsed / progressDuration, 1);
-      
-      // Застосовуємо easing для плавнішого руху
-      const easedProgress = easeInOut(rawProgress);
-      const progress = easedProgress * 100;
-
-      // Оновлюємо прогрес поточного рядка
-      setProgressValues(prev => {
-        const newValues = [...prev];
-        newValues[currentItemIndex] = progress;
-        return newValues;
-      });
-
-      // Якщо прогрес-бар завершено, переходимо до наступного
-      if (rawProgress >= 1) {
-        currentItemIndex++;
-        
-        if (currentItemIndex < progressItems.length) {
-          setActiveIndex(currentItemIndex);
-          setCurrentReview(reviews[currentItemIndex]);
-        } else {
-          setActiveIndex(-1); // Всі завершені
-          setAllProgressComplete(true);
-        }
-      }
+      const reviewIndex = Math.min(Math.floor((elapsed / progressDuration) * reviews.length), reviews.length - 1);
+      setCurrentReview(reviews[reviewIndex]);
 
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    // Невелика затримка для гарантії, що DOM повністю відрендерився
     const startDelay = setTimeout(() => {
+      setCurrentReview(reviews[0]);
       animationFrameId = requestAnimationFrame(animate);
     }, 50);
 
     return () => {
       clearTimeout(startDelay);
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -230,7 +201,7 @@ const Analysis: NextPage = () => {
                           style={{ width: `${progressValues[index]}%` }}
                         />
                       </div>
-                      {activeIndex === index && (
+                      {progressValues[index] < 100 && (
                         <div className={styles.spinner}>
                           <div className={styles.spinnerCircle}></div>
                         </div>
