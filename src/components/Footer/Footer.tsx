@@ -13,19 +13,19 @@ const Footer: React.FC = () => {
             <div className={styles.footerCopyright}>
               <p className={styles.copyrightText}>Mind Я © 2026</p>
               <div className={styles.footerLinks}>
-                <Link href="/oferta" target="_blank" className={styles.footerLink}>
+                <Link href="/oferta" className={styles.footerLink}>
                   Публічна оферта
                 </Link>
                 <span className={styles.footerSeparator}>|</span>
-                <Link href="/refund" target="_blank" className={styles.footerLink}>
+                <Link href="/refund" className={styles.footerLink}>
                   Політика повернення
                 </Link>
                 <span className={styles.footerSeparator}>|</span>
-                <Link href="/privacy" target="_blank" className={styles.footerLink}>
+                <Link href="/privacy" className={styles.footerLink}>
                   Політика конфіденційності
                 </Link>
                 <span className={styles.footerSeparator}>|</span>
-                <Link href="/contact" target="_blank" className={styles.footerLink}>
+                <Link href="/contact" className={styles.footerLink}>
                   Контакти
                 </Link>
               </div>
