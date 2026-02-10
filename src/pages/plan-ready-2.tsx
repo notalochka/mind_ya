@@ -449,7 +449,7 @@ const PlanReady: NextPage = () => {
               </div>
             </div>
             <p className={styles.dailyPrice}>
-              💰 Лише <strong>50 грн за день</strong> — менше ніж чашка кави
+              (Всього ~50 грн/день — дешевше за щоденну каву)
             </p>
 
             <ul className={styles.benefitsList}>
